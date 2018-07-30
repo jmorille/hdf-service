@@ -12,6 +12,5 @@ public interface ReferentielFluxRepository extends PagingAndSortingRepository<Re
     ReferentielFlux findByCode(String code);
     ReferentielFlux findByLibelle(String libelle);
     ArrayList<ReferentielFlux> findBySens(SensEnum sens);
-    ArrayList<ReferentielFlux> findAll();
 
 }

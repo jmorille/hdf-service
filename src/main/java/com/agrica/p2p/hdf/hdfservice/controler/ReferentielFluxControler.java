@@ -76,7 +76,7 @@ public class ReferentielFluxControler {
     @GetMapping("/ref")
     @ResponseBody
     @JsonView(Views.Full.class)
-    public ArrayList<ReferentielFlux> getAllReferentielFlux() {
+    public Iterable<ReferentielFlux> getAllReferentielFlux() {
         return this.repository.findAll();
     }
 
