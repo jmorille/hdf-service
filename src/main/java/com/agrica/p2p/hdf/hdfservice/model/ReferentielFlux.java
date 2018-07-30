@@ -1,5 +1,6 @@
 package com.agrica.p2p.hdf.hdfservice.model;
 
+import com.agrica.p2p.hdf.hdfservice.views.Views;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -11,24 +12,32 @@ import java.io.Serializable;
 public class ReferentielFlux  implements Serializable {
 
 
-    public interface Light {};
-
     @Id
     private String id;
 
     @Column(unique = true)
-    @JsonView(Light.class)
+    @JsonView({Views.Light.class,Views.Full.class})
     private String code;
 
+    @JsonView(Views.Full.class)
     private String type;
 
     @JsonProperty
+    @JsonView(Views.Full.class)
     private String libelle;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 3)
-    @JsonView(Light.class)
+    @JsonView({Views.Light.class,Views.Full.class})
     private SensEnum sens;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
