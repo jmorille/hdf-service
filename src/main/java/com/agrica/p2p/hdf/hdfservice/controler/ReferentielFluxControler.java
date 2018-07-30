@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 
 
 import com.agrica.p2p.hdf.hdfservice.model.ReferentielFlux;
-import com.agrica.p2p.hdf.hdfservice.repository.ReferentielFluxGetRepository;
+import com.agrica.p2p.hdf.hdfservice.repository.ReferentielFluxRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,10 +23,10 @@ public class ReferentielFluxControler {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final ReferentielFluxGetRepository repository;
+    private final ReferentielFluxRepository repository;
 
 
-    public ReferentielFluxControler(ReferentielFluxGetRepository repository) {
+    public ReferentielFluxControler(ReferentielFluxRepository repository) {
         this.repository = repository;
     }
 

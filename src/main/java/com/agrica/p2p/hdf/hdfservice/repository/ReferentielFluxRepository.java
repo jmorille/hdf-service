@@ -6,7 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.ArrayList;
 
-public interface ReferentielFluxGetRepository extends PagingAndSortingRepository<ReferentielFlux, String> {
+public interface ReferentielFluxRepository extends PagingAndSortingRepository<ReferentielFlux, String> {
 
 
     ReferentielFlux findByCode(String code);
