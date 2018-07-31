@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class FluxController {
@@ -53,60 +57,48 @@ public class FluxController {
 
     @GetMapping("/flux/{refCode}/{date}")
     @ResponseBody
-    public Flux getSpecificFlux(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
+    public Optional<Flux> getSpecificFlux(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
         ArrayList<Flux> fluxes = repository.findByReferentielCode(refCode);
-        for(Flux flux : fluxes) {
-            if(DateTimeComparator.getDateOnlyInstance().compare(date,flux.getDateReception()) == 0)
-                return flux;
-
-        }
-        return null;
+        return fluxes
+                .stream()
+                .filter(flux -> DateTimeComparator.getDateOnlyInstance().compare(date,flux.getDateReception()) == 0)
+                .findFirst();
     }
 
 
     /*in case there are more than one flux matching date and ref code*/
-//    @GetMapping("/flux/{refCode}/{date}")
-//    @ResponseBody
-//    public ArrayList<Flux> getSpecificFlux(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
-//        ArrayList<Flux> fluxes = repository.findByReferentielCode(refCode);
-//        ArrayList<Flux> toBeSent = new ArrayList<>();
-//        for(Flux flux : fluxes) {
-//            log.info("Flux : " + flux.toString());
-//            if(DateTimeComparator.getDateOnlyInstance().compare(date,flux.getDateReception()) == 0)
-//                toBeSent.add(flux);
-//
-//        }
-//        return toBeSent;
-//    }
+    @GetMapping("/fluxes/{refCode}/{date}")
+    @ResponseBody
+    public List<Flux> getSpecificFluxes(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
+        ArrayList<Flux> fluxes = repository.findByReferentielCode(refCode);
+
+        return fluxes
+            .stream()
+            .filter(flux -> DateTimeComparator.getDateOnlyInstance().compare(date,flux.getDateReception()) == 0)
+            .collect(Collectors.toList());
+    }
 
     @GetMapping("/flux/range/{startDate}/{endDate}")
     @ResponseBody
     @JsonView(Views.Light.class)
-    public ArrayList<Flux> getSpecificFluxByRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate) {
+    public List<Flux> getSpecificFluxByRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate) {
         Iterable<Flux> fluxes = repository.findAll();
-        ArrayList<Flux> toBeSent = new ArrayList<>();
-        for(Flux flux : fluxes) {
-            log.info("Flux : " + flux.toString());
-            if(flux.getDateReception().after(startDate) && flux.getDateReception().before(endDate))
-                toBeSent.add(flux);
 
-        }
-        return toBeSent;
+        return StreamSupport
+                .stream(fluxes.spliterator(), false)
+                .filter(flux -> flux.getDateReception().after(startDate) && flux.getDateReception().before(endDate))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/flux/code/{refCode}/range/{startDate}/{endDate}")
     @ResponseBody
     @JsonView(Views.Light.class)
-    public ArrayList<Flux> getSpecificFluxByRangeAndCode(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate) {
+    public List<Flux> getSpecificFluxByRangeAndCode(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate) {
         Iterable<Flux> fluxes = repository.findByReferentielCode(refCode);
-        ArrayList<Flux> toBeSent = new ArrayList<>();
-        for(Flux flux : fluxes) {
-            log.info("Flux : " + flux.toString());
-            if(flux.getDateReception().after(startDate) && flux.getDateReception().before(endDate))
-                toBeSent.add(flux);
-
-        }
-        return toBeSent;
+        return StreamSupport
+                .stream(fluxes.spliterator(), false)
+                .filter(flux -> flux.getDateReception().after(startDate) && flux.getDateReception().before(endDate))
+                .collect(Collectors.toList());
     }
 
 }
