@@ -1,5 +1,7 @@
 package com.agrica.p2p.hdf.hdfservice.model;
 
+import com.agrica.p2p.hdf.hdfservice.views.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class Flux implements Serializable  {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_reception")
+    @JsonView(Views.Light.class)
     private Date dateReception;
 
 
@@ -41,13 +44,16 @@ public class Flux implements Serializable  {
 
 
     @Column(columnDefinition = "TEXT")
+    @JsonView(Views.Light.class)
     private String commentaire;
 
     @Column(name = "id_gateway")
+    @JsonView(Views.Light.class)
     private Integer idGateway;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "code", referencedColumnName = "code")
+    @JsonView(Views.Light.class)
     private ReferentielFlux referentiel;
 
     public String getId() {

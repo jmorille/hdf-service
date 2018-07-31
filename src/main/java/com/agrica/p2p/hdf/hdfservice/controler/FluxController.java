@@ -4,6 +4,8 @@ import com.agrica.p2p.hdf.hdfservice.model.Flux;
 import com.agrica.p2p.hdf.hdfservice.model.ReferentielFlux;
 import com.agrica.p2p.hdf.hdfservice.repository.FluxRepository;
 import com.agrica.p2p.hdf.hdfservice.repository.ReferentielFluxRepository;
+import com.agrica.p2p.hdf.hdfservice.views.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.joda.time.DateTimeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,8 +81,24 @@ public class FluxController {
 
     @GetMapping("/flux/range/{startDate}/{endDate}")
     @ResponseBody
+    @JsonView(Views.Light.class)
     public ArrayList<Flux> getSpecificFluxByRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate) {
         Iterable<Flux> fluxes = repository.findAll();
+        ArrayList<Flux> toBeSent = new ArrayList<>();
+        for(Flux flux : fluxes) {
+            log.info("Flux : " + flux.toString());
+            if(flux.getDateReception().after(startDate) && flux.getDateReception().before(endDate))
+                toBeSent.add(flux);
+
+        }
+        return toBeSent;
+    }
+
+    @GetMapping("/flux/code/{refCode}/range/{startDate}/{endDate}")
+    @ResponseBody
+    @JsonView(Views.Light.class)
+    public ArrayList<Flux> getSpecificFluxByRangeAndCode(@PathVariable String refCode, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate) {
+        Iterable<Flux> fluxes = repository.findByReferentielCode(refCode);
         ArrayList<Flux> toBeSent = new ArrayList<>();
         for(Flux flux : fluxes) {
             log.info("Flux : " + flux.toString());
