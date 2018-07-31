@@ -51,7 +51,7 @@ public class Flux implements Serializable  {
     @JsonView(Views.Light.class)
     private Integer idGateway;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "code", referencedColumnName = "code")
     @JsonView(Views.Light.class)
     private ReferentielFlux referentiel;
