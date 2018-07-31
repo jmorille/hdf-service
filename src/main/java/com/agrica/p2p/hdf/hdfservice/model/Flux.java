@@ -46,8 +46,8 @@ public class Flux implements Serializable  {
     @Column(name = "id_gateway")
     private Integer idGateway;
 
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "code", referencedColumnName = "code")
     private ReferentielFlux referentiel;
 
     public String getId() {
@@ -112,5 +112,17 @@ public class Flux implements Serializable  {
 
     public void setReferentiel(ReferentielFlux referentiel) {
         this.referentiel = referentiel;
+    }
+
+    @Override
+    public String toString() {
+        return "Date réception : " + dateReception.toString() +
+                "Date début délai : " + dateDebutDelai.toString() +
+                "Date fin délai : " + dateFinDelai.toString() +
+                "Date annulation : " + dateAnnulation.toString() +
+                "Commentaire : " + commentaire +
+                "Id gateway : " + idGateway +
+                "Référentiel : " + referentiel.toString()
+                ;
     }
 }

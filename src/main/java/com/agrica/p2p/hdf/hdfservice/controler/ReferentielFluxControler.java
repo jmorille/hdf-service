@@ -1,22 +1,18 @@
 package com.agrica.p2p.hdf.hdfservice.controler;
 
-import com.agrica.p2p.hdf.hdfservice.model.Flux;
+import com.agrica.p2p.hdf.hdfservice.model.ReferentielFlux;
 import com.agrica.p2p.hdf.hdfservice.model.SensEnum;
+import com.agrica.p2p.hdf.hdfservice.repository.ReferentielFluxRepository;
 import com.agrica.p2p.hdf.hdfservice.views.Views;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
-import com.agrica.p2p.hdf.hdfservice.model.ReferentielFlux;
-import com.agrica.p2p.hdf.hdfservice.repository.ReferentielFluxRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
 public class ReferentielFluxControler {
@@ -56,14 +52,14 @@ public class ReferentielFluxControler {
         return ref.getSens().getCode().equals("OUT") ? "Going out" : "Coming in";
     }
 
-    @GetMapping("/flux")
-    @ResponseBody
-    public Flux getSampleFlux() {
-        Flux result = new Flux();
-        result.setDateDebutDelai(new Date());
-        result.setCommentaire("Coucou");
-        return result;
-    }
+//    @GetMapping("/flux")
+//    @ResponseBody
+//    public Flux getSampleFlux() {
+//        Flux result = new Flux();
+//        result.setDateDebutDelai(new Date());
+//        result.setCommentaire("Coucou");
+//        return result;
+//    }
 
     @PostMapping("/ref")
     @ResponseBody

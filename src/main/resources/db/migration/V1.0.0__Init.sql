@@ -1,7 +1,7 @@
 create table referentiel (
   id varchar(255) not null,
   sens varchar(3),
-  code varchar(255),
+  code varchar(255) unique,
   libelle varchar(255),
   type varchar(255),
   primary key (id)

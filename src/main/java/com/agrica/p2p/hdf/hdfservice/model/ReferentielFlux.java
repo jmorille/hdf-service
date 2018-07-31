@@ -3,6 +3,7 @@ package com.agrica.p2p.hdf.hdfservice.model;
 import com.agrica.p2p.hdf.hdfservice.views.Views;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,11 @@ public class ReferentielFlux  implements Serializable {
 
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private String id;
 
     @Column(unique = true)
@@ -55,7 +61,7 @@ public class ReferentielFlux  implements Serializable {
         this.type = type;
     }
 
-     public String getLibelle() {
+    public String getLibelle() {
         return libelle;
     }
 
