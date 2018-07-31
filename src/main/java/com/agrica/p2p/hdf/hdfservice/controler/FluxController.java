@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.joda.time.DateTimeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,6 @@ public class FluxController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
     public FluxController(ReferentielFluxRepository referentielFluxRepository, FluxRepository repository) {
         this.repository = repository;
         this.referentielFluxRepository = referentielFluxRepository;
@@ -49,7 +47,6 @@ public class FluxController {
     public ResponseEntity<String> postFlux(@RequestBody Flux flux, @PathVariable String refCode) {
         ReferentielFlux referentielFlux = referentielFluxRepository.findByCode(refCode);
         flux.setReferentiel(referentielFlux);
-        log.info(refCode + " " + referentielFlux.toString());
         Flux created = this.repository.save(flux);
         log.info(created.toString());
         return ResponseEntity.status(HttpStatus.CREATED).build();
