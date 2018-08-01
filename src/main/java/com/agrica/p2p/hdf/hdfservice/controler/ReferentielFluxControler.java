@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
@@ -63,7 +64,7 @@ public class ReferentielFluxControler {
 
     @PostMapping("/ref")
     @ResponseBody
-    public ResponseEntity<String> postReferentielFlux(@RequestBody ReferentielFlux referentielFlux) {
+    public ResponseEntity<Object> postReferentielFlux(@Valid @RequestBody ReferentielFlux referentielFlux) {
         ReferentielFlux created = this.repository.save(referentielFlux);
         log.info(created.toString());
         return ResponseEntity.status(HttpStatus.CREATED).build();

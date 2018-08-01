@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -22,7 +23,8 @@ public class ReferentielFlux  implements Serializable {
     private String id;
 
     @Column(unique = true)
-    @JsonView({Views.Light.class,Views.Full.class})
+    @NotNull
+    @JsonView({Views.Light.class, Views.Full.class})
     private String code;
 
     @JsonView(Views.Full.class)
@@ -32,6 +34,7 @@ public class ReferentielFlux  implements Serializable {
     @JsonView(Views.Full.class)
     private String libelle;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(length = 3)
     @JsonView({Views.Light.class,Views.Full.class})

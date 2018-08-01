@@ -1,5 +1,8 @@
 package com.agrica.p2p.hdf.hdfservice.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@JsonSerialize(using = SensSerializer.class)
 public enum SensEnum {
     IN("IN", "Entrant"), OUT("OUT", "Sortant");
 
