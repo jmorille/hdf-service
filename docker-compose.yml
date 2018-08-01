@@ -1,0 +1,53 @@
+version: "3.5"
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./data/certs:/etc/nginx/ssl:ro
+      - ./src/main/config/nginx/nginx-keycloak.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+       - "80:80"
+    depends_on:
+      - keycloak
+    networks:
+      - security-network
+#    command: /bin/bash -c "envsubst '\$NGINX_HOST \$NGINX_HTTPS_PORT' < /etc/nginx/conf.d/mysite.template"
+#    command: /bin/bash -c "envsubst '\$NGINX_HOST \$NGINX_HTTPS_PORT' < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && cat /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+#      - ./nginx-keycloak.template:/etc/nginx/conf.d/mysite.template
+
+
+
+  keycloak:
+    image: "jboss/keycloak"
+    environment:
+      KEYCLOAK_USER: "admin"
+      KEYCLOAK_PASSWORD: "ChaquePasEstUneVictoire"
+      DB_VENDOR: "POSTGRES"
+      DB_USER: "keycloak"
+      DB_PASSWORD: "password"
+      DB_ADDR: "keycloakDB"
+      PROXY_ADDRESS_FORWARDING: "true"
+    depends_on:
+      - keycloakDB
+    networks:
+      - security-network
+      - security-db-network
+
+  keycloakDB:
+    image: postgres
+    environment:
+      POSTGRES_DB: "keycloak"
+      POSTGRES_USER: "keycloak"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - "security-db-data:/var/lib/postgresql/data/pgdata"
+    networks:
+      - security-db-network
+
+networks:
+    security-network:
+    security-db-network:
+
+volumes:
+ security-db-data:
