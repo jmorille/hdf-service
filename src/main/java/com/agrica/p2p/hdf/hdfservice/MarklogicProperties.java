@@ -15,10 +15,17 @@ public class MarklogicProperties {
     private String host;
 
     /**
-     * Marklogic Port
+     * Marklogic Port for Final DB
      */
     @Pattern(regexp = "[0-9]+")
-    private String port;
+    private String portFinal;
+
+
+    /**
+     * Marklogic Port for Staging DB
+     */
+    @Pattern(regexp = "[0-9]+")
+    private String portStaging;
 
     /**
      * Marklogic Username
@@ -38,12 +45,20 @@ public class MarklogicProperties {
         this.host = host;
     }
 
-    public String getPort() {
-        return port;
+    public String getPortFinal() {
+        return portFinal;
     }
 
-    public void setPort(String port) {
-        this.port = port;
+    public void setPortFinal(String portFinal) {
+        this.portFinal = portFinal;
+    }
+
+    public String getPortStaging() {
+        return portStaging;
+    }
+
+    public void setPortStaging(String portStaging) {
+        this.portStaging = portStaging;
     }
 
     public String getUsername() {
@@ -61,4 +76,16 @@ public class MarklogicProperties {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "MarklogicProperties{" +
+                "host='" + host + '\'' +
+                ", portFinal='" + portFinal + '\'' +
+                ", portStaging='" + portStaging + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
 }

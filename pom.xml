@@ -25,6 +25,7 @@
         <!-- librairy -->
         <cron-utils.version>7.0.2</cron-utils.version>
         <keycloak-adapter-bom.version>4.1.0.Final</keycloak-adapter-bom.version>
+        <jasypt-spring-boot-starter.version>2.1.0</jasypt-spring-boot-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -44,6 +45,11 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt-spring-boot-starter.version}</version>
         </dependency>
         <!-- Health check -->
         <dependency>
