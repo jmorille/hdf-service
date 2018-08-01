@@ -971,6 +971,10 @@
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
   "smtpServer": {},
+  "loginTheme": "p2p",
+  "accountTheme": "p2p",
+  "adminTheme": "p2p",
+  "emailTheme": "p2p",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging"
@@ -1123,7 +1127,24 @@
     ]
   },
   "internationalizationEnabled": false,
-  "supportedLocales": [],
+  "supportedLocales": [
+    "de",
+    "no",
+    "ru",
+    "sv",
+    "pt-BR",
+    "lt",
+    "en",
+    "it",
+    "fr",
+    "zh-CN",
+    "es",
+    "ja",
+    "sk",
+    "ca",
+    "nl"
+  ],
+  "defaultLocale": "en",
   "authenticationFlows": [
     {
       "id": "3a41e160-9ae6-4be1-afd9-4f3af80f22bd",

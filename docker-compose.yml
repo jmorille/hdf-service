@@ -3,7 +3,7 @@ services:
   web:
     image: nginx
     volumes:
-      - ./data/certs:/etc/nginx/ssl:ro
+      - ./src/main/config/nginx/certs:/etc/nginx/ssl:ro
       - ./src/main/config/nginx/nginx-keycloak.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
        - "80:80"
@@ -19,6 +19,8 @@ services:
 
   keycloak:
     image: "jboss/keycloak"
+    volumes:
+      - ./src/main/config/keycloack/themes/p2p:/opt/jboss/keycloak/themes/p2p
     environment:
       KEYCLOAK_USER: "admin"
       KEYCLOAK_PASSWORD: "ChaquePasEstUneVictoire"
