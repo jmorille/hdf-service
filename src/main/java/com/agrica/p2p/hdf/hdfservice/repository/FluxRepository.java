@@ -3,10 +3,12 @@ package com.agrica.p2p.hdf.hdfservice.repository;
 import com.agrica.p2p.hdf.hdfservice.model.Flux;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+@Repository
 public interface FluxRepository extends PagingAndSortingRepository<Flux, String> {
 
     @Query("select flux from Flux flux, ReferentielFlux rf where flux.dateReception = :dateReception and flux.referentiel.code = :code")
