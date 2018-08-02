@@ -1,0 +1,39 @@
+# Server
+server:
+  port: "8090"
+
+jasypt:
+  encryptor:
+    password: password
+
+# Actuator
+# management.endpoints.web.exposure.include=*
+# management.endpoint.health.show-details=always
+
+# Web
+#spring.http.converters.preferred-json-mapper=jsonb
+
+
+# Security
+keycloak:
+  auth-server-url: "http://localhost/auth"
+  realm: "Hdf"
+  resource: "login-hdf"
+  public-client: true
+
+
+
+# JPA
+spring:
+  datasource:
+    url: jdbc:h2:mem:hdf
+  jpa:
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    show-sql:  true
+
+# Marklogic
+marklogic:
+  host: qualif-marklogic-vip
+  portFinal: "8012"
+  portStaging: "8012"

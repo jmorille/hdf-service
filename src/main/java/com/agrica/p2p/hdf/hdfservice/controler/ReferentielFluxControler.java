@@ -63,6 +63,7 @@ public class ReferentielFluxControler {
 //    }
 
     @PostMapping("/ref")
+
     @ResponseBody
     public ResponseEntity<Object> postReferentielFlux(@Valid @RequestBody ReferentielFlux referentielFlux) {
         ReferentielFlux created = this.repository.save(referentielFlux);

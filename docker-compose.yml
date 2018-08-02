@@ -23,10 +23,10 @@ services:
       - ./src/main/config/keycloack/themes/p2p:/opt/jboss/keycloak/themes/p2p
     environment:
       KEYCLOAK_USER: "admin"
-      KEYCLOAK_PASSWORD: "ChaquePasEstUneVictoire"
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       DB_VENDOR: "POSTGRES"
-      DB_USER: "keycloak"
-      DB_PASSWORD: "password"
+      DB_USER: "${KEYCLOAK_DB_USER}"
+      DB_PASSWORD: "${KEYCLOAK_DB_PASSWORD}"
       DB_ADDR: "keycloakDB"
       PROXY_ADDRESS_FORWARDING: "true"
     depends_on:
@@ -38,9 +38,9 @@ services:
   keycloakDB:
     image: postgres
     environment:
-      POSTGRES_DB: "keycloak"
+      POSTGRES_DB: "${KEYCLOAK_DB_USER}"
       POSTGRES_USER: "keycloak"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_PASSWORD: "${KEYCLOAK_DB_PASSWORD}"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - "security-db-data:/var/lib/postgresql/data/pgdata"
