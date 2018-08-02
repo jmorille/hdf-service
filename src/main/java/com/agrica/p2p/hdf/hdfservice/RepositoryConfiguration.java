@@ -14,7 +14,7 @@ public class RepositoryConfiguration {
 
     @Bean
     public MarkLogicOperations marklogicTemplate() {
-        DatabaseClient client = newClient("host", 8000, new DatabaseClientFactory.DigestAuthContext("yk", "pw"));
+        DatabaseClient client = newClient("qualif-marklogic-vip.agrica.loc", 8000, "HOR-STAGING", new DatabaseClientFactory.BasicAuthContext("yk3764", "Scofield93190"));
         return new MarkLogicTemplate(client);
     }
 }
