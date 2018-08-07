@@ -19,4 +19,10 @@ $ mvn clean spring-boot:run
 
 #### Password encryption
 https://github.com/ulisesbocchio/jasypt-spring-boot
+```bash
+$ java -cp ~/.m2/repository/org/jasypt/jasypt/1.9.2/jasypt-1.9.2.jar  org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="contactspassword" password=supersecretz algorithm=PBEWithMD5AndDES
+```
 
+```bash
+$ java -cp hdf-service-0.0.1-SNAPSHOT.jar  org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="contactspassword" password=supersecretz algorithm=PBEWithMD5AndDES
+```

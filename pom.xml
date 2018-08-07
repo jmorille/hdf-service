@@ -156,5 +156,28 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>encrypt</id>
+            <build>
+                <defaultGoal>exec:java</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <mainClass>org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI</mainClass>
+                            <arguments>
+                                <argument>input="${input}"</argument>
+                                <argument>password=supersecretz</argument>
+                                <argument>algorithm=PBEWithMD5AndDES</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
