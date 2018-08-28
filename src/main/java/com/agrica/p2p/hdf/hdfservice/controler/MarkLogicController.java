@@ -43,26 +43,6 @@ public class MarkLogicController {
     public byte[] getMLDataFromCode(@PathVariable String code) throws IOException {
         List<DocumentRecord> list = repository.queryML("CODE_EXTERNE", code);
 
-
-        //does not work
-//        HttpGet request = new HttpGet("http://qualif-marklogic-web:8090/v1/documents?uri=/binary/" + list.get(0).getUri().split("/")[2]);
-//        String auth = "hor_user" + ":" + "hor_user";
-//        byte[] encodedAuth = Base64.encodeBase64(
-//                auth.getBytes(StandardCharsets.ISO_8859_1));
-//        String authHeader = "Basic " + new String(encodedAuth);
-//        request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
-//
-//        HttpClient client = HttpClientBuilder.create().build();
-//        HttpResponse response = client.execute(request);
-//        return response.toString();
-
-        //doesn't work to attack the URL directly, need authentication
-//        InputStream in = new URL("http://qualif-marklogic-web:8090/v1/documents?uri=/binary/" + list.get(0).getUri().split("/")[2]).openStream();
-
-
-
-//        return ByteStreams.toByteArray(in);
-
         return repository.getBinary("/binary/" + list.get(0).getUri().split("/")[2]);
     }
 }
